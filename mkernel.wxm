@@ -1,0 +1,135 @@
+/* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
+/* [ Created with wxMaxima version 19.07.0 ] */
+/* [wxMaxima: title   start ]
+Finds parameters for inertialess memory function for GBD
+   [wxMaxima: title   end   ] */
+
+
+/* [wxMaxima: comment start ]
+Author: Andres Cordoba
+Copyright (2022) Andres Cordoba
+This script is distributed under the MIT License.
+email: andcorduri@gmail.com
+   [wxMaxima: comment end   ] */
+
+
+/* [wxMaxima: section start ]
+Functions for analysis
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ coeffs1(p,x):=block([l], l : [], 
+                         for i from 0 thru hipow(p,x)     
+                             do (l : cons(coeff(p,x,i),l)), l)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+poly5(λ,H,ζ):=block([n],n: length(λ),
+                    ζ*product(s+1/λ[j],j,1,n)+sum(H[j]*product(
+                    if  notequal(i,j) then 
+          s+1/λ[i] else 1,i,1,n),j,1,n))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+poly4(n,ζ):=(μ*product(s+1/Λ[j],j,1,n)-sum(c[j]*product(
+        if  notequal(i,j) then 
+        s+1/Λ[i] else 1,i,1,n),j,1,n))*ζ$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+poly6(λ):=block([n],n:length(λ),product(s+1/λ[j],j,1,n))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+System specification
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ input:read_list("input.csv", 'csv)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+λin:makelist(input[i],i,6+input[6]+1,6+2*input[6])$ 
+Hin:makelist(input[i],i,6,6+input[6]-1)$ 
+ζin:input[6+2*input[6]+2]$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+write_data (λin, "lin.csv")$
+write_data (append(Hin,[ζin]), "hin.csv")$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: section start ]
+Calculate inertialess memory function
+   [wxMaxima: section end   ] */
+
+
+/* [wxMaxima: input   start ] */
+poly5eval:expand(poly5(λin,Hin,ζin))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solΛ:allroots(poly5eval)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+solΛ2:makelist(Λ[i]=at(-1/s,solΛ[i]),i,1,length(solΛ))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+write_data(at(makelist(Λ[i],i,1,length(solΛ)),solΛ2), "Ls.csv")$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+poly4eval:expand(poly4(4,ζin))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+coeffs4:at(coeffs1(poly4eval,s),solΛ2)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+poly6eval:expand(poly6(λin))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+coeffs6:coeffs1(poly6eval,s)$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ecs:makelist(coeffs4[i]=coeffs6[i],i,1,length(coeffs6))$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: input   start ] */
+ratprint:false$
+solc:solve(ecs),numer$
+/* [wxMaxima: input   end   ] */
+
+
+/* [wxMaxima: hide output   ] */
+/* [wxMaxima: input   start ] */
+write_data (at(makelist(c[i],i,1,length(solc[1])-1),solc[1]), "cs.csv")$
+/* [wxMaxima: input   end   ] */
+
+
+
+/* Old versions of Maxima abort on loading files that end in a comment. */
+"Created with wxMaxima 19.07.0"$
