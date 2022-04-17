@@ -25,5 +25,7 @@ Ninth line: Uncertainty in the voltage signal.
 Tenth line: For how long to run the simulation (dimensionless time).
 Eleventh line: An integer number to set the random number seed.
 
-Input the strengths of the Maxwell modes normalized by the trap stiffness.
+nput the strengths of the Maxwell modes normalized by the trap stiffness.
 Input the relaxation times normalized by the smallest relaxation time.
+Put nm=0 in the second row and leave the third and fourth 
+row empty to simulate a bead in a purely viscous fluid.

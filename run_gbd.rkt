@@ -20,10 +20,10 @@
 
 (cond
   [(equal? type "run_gbd")
-   (define cim0 (list-ref inpar2 0))
+   (define cim0 (if (>(length inpar2)0) (list-ref inpar2 0) inpar2))
    (define cim (for/list ([j (in-range 0 (length cim0))])
                  (string->number (list-ref cim0 j))))
-   (define lim0 (list-ref inpar3 0))
+   (define lim0 (if (>(length inpar3)0) (list-ref inpar3 0) inpar3))
    (define lim (for/list ([j (in-range 0 (length lim0))])
                  (string->number (list-ref lim0 j))))
    (define uim (/ 1.0 (string->number (list-ref(list-ref inpar 4)1))))

@@ -1,7 +1,7 @@
 /* [wxMaxima batch file version 1] [ DO NOT EDIT BY HAND! ]*/
 /* [ Created with wxMaxima version 19.07.0 ] */
 /* [wxMaxima: title   start ]
-Finds parameters for inertialess memory function for GBD
+Finds the memory kernel for the GBD simulations
    [wxMaxima: title   end   ] */
 
 
@@ -56,9 +56,9 @@ System specification
 
 
 /* [wxMaxima: input   start ] */
-λin:makelist(input[i],i,6+input[6]+1,6+2*input[6])$ 
-Hin:makelist(input[i],i,6,6+input[6]-1)$ 
-ζin:input[6+2*input[6]+2]$
+if input[4] > 0 then λin: makelist(input[i],i,6+input[4]+1,6+2*input[4]) else λin: []$ 
+if input[4] > 0 then Hin: makelist(input[i],i,6,6+input[4]-1) else Hin: []$ 
+ζin:input[6+2*input[4]+2]$
 /* [wxMaxima: input   end   ] */
 
 
@@ -124,9 +124,8 @@ solc:solve(ecs),numer$
 /* [wxMaxima: input   end   ] */
 
 
-/* [wxMaxima: hide output   ] */
 /* [wxMaxima: input   start ] */
-write_data (at(makelist(c[i],i,1,length(solc[1])-1),solc[1]), "cs.csv")$
+if input[4] > 0 then write_data (at(makelist(c[i],i,1,length(solc[1])-1),solc[1]), "cs.csv") else write_data ([], "cs.csv")$
 /* [wxMaxima: input   end   ] */
 
 
