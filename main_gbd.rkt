@@ -78,7 +78,7 @@
 
 
 ;; simulate trajectory
-(define (runsimu c l u lens sens dsens dv deltat tst inp it nod)
+(define (runsimu c l u lens sens dsens deltat tst inp it nod)
   
   (define randsr1 (make-random-source-vector 3 (+(*(string->number inp)nod)it)))
   (define randsq1 (make-random-source-vector (* 3 (length c)) (+(*(+ (string->number inp) 3)nod)it)))
@@ -99,11 +99,11 @@
 
 
 ;; Save trajectory
-(define (savesimu c l u lens sens dsens dv deltat tst inp)
+(define (savesimu c l u lens sens dsens deltat tst inp)
   
   (define out1 (open-output-file (string-append "Vdata_"  "traj_" (number->string(*(string->number inp))) ".csv") #:exists 'replace))
   
-  (define rest1 (runsimu c l u lens sens dsens dv deltat tst inp 0 0))
+  (define rest1 (runsimu c l u lens sens dsens deltat tst inp 0 0))
   (define calmsd (list-ref rest1 0))
 
   (write-table calmsd out1)

@@ -33,18 +33,36 @@ from scipy import optimize
 t1=[]
 data1=[]
 with open('./Vdata_traj_1.csv','r') as csvfile:
-    for line in csvfile:
-        plots=csv.reader(csvfile, delimiter=',')
-        for row in plots:
-            t1.append(float(row[0]))
-            data1.append(float(row[1]))
+    plots=csv.reader(csvfile, delimiter=',')
+    for row in plots:
+        t1.append(float(row[0]))
+        data1.append(float(row[1]))
+
+input1=[]
+with open('./input.csv','r') as csvfile:
+    in1=csv.reader(csvfile, delimiter=',')
+    for row in in1:
+        input1.append(row)
+
+input2=[]
+with open('./GsP.csv','r') as csvfile:
+    in2=csv.reader(csvfile, delimiter=',')
+    for row in in2:
+        input2.append(row)
             
+input3=[]
+with open('./msd0.csv','r') as csvfile:
+    in3=csv.reader(csvfile, delimiter=',')
+    for row in in3:
+        input3.append(row)        
+            
+
 #The next few lines define the global parameters:
             
 #Sensitivity in nm/mV:
-sens = 0.25
+sens = float(input1[6][1])
 #Uncertainty in the sensitivity in nm/mV:
-dsens = 0.025
+dsens = float(input1[7][1])
 #Offset due to electric noise or optical system misalignment in mV:
 dV = 50
 #Probe bead diameter in micro meters:
@@ -54,20 +72,28 @@ dDExp = 0.05*DExp
 #Temperature measured during the experiment in Celsius:
 TExp = 20
 #Trap stiffness in pN/nm:
-HeExp = 0.08
+HeExp = float(input1[5][1])
 #Uncertainty in the trap stiffness in pN/nm:
 dHeExp = 0.1*HeExp
 #Parameters for the discrete relaxation spectrum of the fluid used here as input in the BD simulations to generate the data (dimensionless).
 #see A. Cordoba, T. Indei, and J. D. Schieber, Journal of Rheology, vol. 56, no. 1, pp. 185-212, 2012 for details.
-Hin = [4, 3, 2, 1]
-lin = [1, 5, 10, 20]
-z0in = 0.1
+lin=[]
+for i in range(0,len(input2[0])):
+       lin.append(float(input2[0][i]))
+Hin=[]
+for i in range(0,len(input2[1])):
+       Hin.append(float(input2[1][i]))       
+z0in=float(input2[2][0])
 #Given the relaxation times and moduli, above, the
 #parameters for an analytic expression of the MSD of the probe bead
 #can be obtained, see the reference cited above for more details on how to do the calculation.
 #The expression is useful to obtain an initial guess for the fitting of the MSD done here:
-Lp=[0.009,1.46,6.84,15.4,71.3]
-cpV0=[0.009018,0.0034,0.0022,0.0036,0.082]
+Lp=[]
+for i in range(0,len(input3[0])):
+       Lp.append(float(input3[0][i]))
+cpV0=[]
+for i in range(0,len(input3[1])):
+       cpV0.append(float(input3[1][i]))
 
 
 #This next function, "msdblt" implements the blocking

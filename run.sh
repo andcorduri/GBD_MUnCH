@@ -18,4 +18,8 @@ racket ../run_gbd.rkt
 
 wait 
 
+maxima < ../msd.wxm --very-quiet
+
+wait
+
 python2.7 ../MUnCH_v1.py

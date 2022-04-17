@@ -63,8 +63,7 @@ if input[4] > 0 then Hin: makelist(input[i],i,6,6+input[4]-1) else Hin: []$
 
 
 /* [wxMaxima: input   start ] */
-write_data (λin, "lin.csv")$
-write_data (append(Hin,[ζin]), "hin.csv")$
+write_data ([λin,Hin,ζin], "GsP.csv")$
 /* [wxMaxima: input   end   ] */
 
 
@@ -85,11 +84,6 @@ solΛ:allroots(poly5eval)$
 
 /* [wxMaxima: input   start ] */
 solΛ2:makelist(Λ[i]=at(-1/s,solΛ[i]),i,1,length(solΛ))$
-/* [wxMaxima: input   end   ] */
-
-
-/* [wxMaxima: input   start ] */
-write_data(at(makelist(Λ[i],i,1,length(solΛ)),solΛ2), "Ls.csv")$
 /* [wxMaxima: input   end   ] */
 
 
@@ -125,7 +119,7 @@ solc:solve(ecs),numer$
 
 
 /* [wxMaxima: input   start ] */
-if input[4] > 0 then write_data (at(makelist(c[i],i,1,length(solc[1])-1),solc[1]), "cs.csv") else write_data ([], "cs.csv")$
+if input[4] > 0 then write_data ([at(makelist(Λ[i],i,1,length(solΛ)),solΛ2),at(makelist(c[i],i,1,length(solc[1])-1),solc[1])], "kernelp.csv") else write_data ([], "cs.csv")$
 /* [wxMaxima: input   end   ] */
 
 
