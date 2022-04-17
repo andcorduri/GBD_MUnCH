@@ -12,9 +12,6 @@
 (define (2dmp matrix p1 p2)
   (list-ref (list-ref matrix p1) p2))
 
-;; Kronecker delta function
-(define (Kdelta i j)
-  (if (equal? j i) 1 0))
 
 ;; dot product between matrix and vector
 (define (dot mat vect)
@@ -22,25 +19,6 @@
     (foldl + 0 (for/list ([j (in-range (length vect))])
                  (* (2dmp mat i j)(list-ref vect j))))))
 
-;; Identity matrix
-(define (IM n k)
-  (for/list ([i (in-range n)])
-    (for/list ([j (in-range n)])
-      (* k (Kdelta i j)))))
-
-;; Transpose of a Matrix
-(define (trans mat)
-  (for/list ([j (in-range (length (list-ref mat 0)))])
-    (for/list ([i (in-range (length mat))])
-      (2dmp mat i j))))
-
-;; sampling function
-(define (linsamp data m)
-  (define k 0)
-  (for ([i (in-range (vector-length data))])
-    (cond 
-      [(equal? i (* k m)) (vector-set! data k (vector-ref data i))
-                          (set! k (+ k 1))])))
 
 ;; matrix A in Ornstein-Ulembech process
 (define (a c l u) 
