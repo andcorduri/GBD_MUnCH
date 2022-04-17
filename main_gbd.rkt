@@ -12,13 +12,11 @@
 (define (2dmp matrix p1 p2)
   (list-ref (list-ref matrix p1) p2))
 
-
 ;; dot product between matrix and vector
 (define (dot mat vect)
   (for/list ([i (in-range (length mat))])
     (foldl + 0 (for/list ([j (in-range (length vect))])
                  (* (2dmp mat i j)(list-ref vect j))))))
-
 
 ;; matrix A in Ornstein-Ulembech process
 (define (a c l u) 
