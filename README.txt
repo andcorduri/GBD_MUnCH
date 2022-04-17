@@ -29,7 +29,9 @@ producing a trajectory file (in units of mV). The
 MSD and its uncertainty are then
 calculated in Python using blocking transformations (MUnCH_v1.py).
 The first column in the MSD file is the time, the second column the MSD
-and the third column the MSD uncertainty.
+and the third column the MSD uncertainty. The script msd.wxm
+generates an initial guess for fitting the MSD with an analytic function.
+This is used in MUnCH.py when performing the data analysis.
 
 
 Papers where you can find the detailed explanations of the 
