@@ -7,8 +7,6 @@
 
 (require (planet dherman/csv-write:1:2/csv-write))
 (require (planet williams/science:4:7/science))
-(require (planet neil/csv:1:6))
-(require (planet wmfarr/permutations:1:3/permutations))
 
 ;; position in a 2D matrix
 (define (2dmp matrix p1 p2)
@@ -87,7 +85,7 @@
             (for/list ([i (in-range (length (list-ref matb 0)))])
               (random-gaussian (vector-ref rands (+ i 1)) 0 (sqrt deltat))))))
 
-;; recursive function for the time evolution of the Ornstein–Uhlenbeck process, with saving parameters for PCS algorithm
+;; recursive function for the time evolution of the Ornstein–Uhlenbeck process
 (define (evolution rands1 vect01 c l u lens sens mata matb
                    deltat tt n conts samp vectores1)
   (cond
