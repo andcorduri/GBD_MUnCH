@@ -1,7 +1,7 @@
 
-########################### GBD+MUnCH ##################################
-################Copyright (c) 2022 Andres Cordoba#######################
-################email: andcorduri@gmail.com#############################
+################## GBD+MUnCH #####################
+######### Copyright (c) 2022 Andres Cordoba ##########
+######## email: andcorduri@gmail.com ##################
 
 This code performs generalized Brownian dynamics (GBD) simulations of 
 a micro particle embedded in a viscoelastic fluid. It takes
@@ -18,7 +18,7 @@ The code requires the following (open source compilers and/or interpreters)
 to be installed:
 
 Racket: https://racket-lang.org/
-Maxima: https://maxima.sourceforge.io/
+Maxima: https://wxmaxima-developers.github.io/wxmaxima/
 Python: https://www.python.org/
 
 The script run.sh can be used to run a whole simulation, in 
