@@ -21,13 +21,10 @@ Racket: https://racket-lang.org/
 Maxima: https://maxima.sourceforge.io/
 Python: https://www.python.org/
 
-Then use the compile.sh script to compile the GBD code
-which is written in Racket. This 
-will produce an executable named run_gbd.
 The script run.sh can be used to run a whole simulation, in 
 which first a memory kernel is calculated using 
 the Maxima mkernel.wxm.
-Using this memory kernel, the GBD is run, 
+Using this memory kernel, the GBD is run using run_gbd.rkt, 
 producing a trajectory file (in units of mV). The 
 MSD and its uncertainty are then
 calculated in Python using blocking transformations (MUnCH_v1.py).

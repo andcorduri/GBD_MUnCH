@@ -14,7 +14,7 @@ maxima < ../mkernel.wxm --very-quiet
 
 
 sed -i "s/<RUN>/$RUN/" input.csv
-../compiled/bin/run_gbd
+racket ../run_gbd.rkt
 
 wait 
 
