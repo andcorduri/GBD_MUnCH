@@ -21,7 +21,7 @@ Sixth line: Trap stiffness.
 Seventh line: Sensitivity of photo-detector.
 Eight line: Uncertainty in the sensitivity.
 Ninth line: For how long to run the simulation (dimensionless time).
-Tenth line: Time step of the simulation.
+Tenth line: Time step size of the simulation.
 Eleventh line: An integer number to set the random number seed.
 
 Input the strengths of the Maxwell modes normalized by the trap stiffness.
