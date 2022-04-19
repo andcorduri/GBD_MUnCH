@@ -41,8 +41,9 @@ A. Córdoba, T. Indei, and J. D. Schieber,
 “Elimination of inertia from a generalized Langevin equation: 
 Applications to microbead rheology modeling and data analysis,” 
 Journal of Rheology, vol. 56, no. 1, pp. 185–212, 2012.
+https://doi.org/10.1122/1.3675625
 
 A. Córdoba and J. D. Schieber, “MUnCH: a calculator for 
 propagating statistical and other sources of error in 
 passive microrheology,” Rheologica Acta, vol. 61, pp. 49–57, 2022.
-
+https://rdcu.be/cBqmk
