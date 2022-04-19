@@ -4,7 +4,7 @@
 ######## email: andcorduri@gmail.com ##################
 
 This code performs generalized Brownian dynamics (GBD) simulations of 
-a micro particle embedded in a viscoelastic fluid. It takes
+a microparticle embedded in a viscoelastic fluid. It takes
 as input the dynamic modulus of the fluid represented with 
 a multi-mode Maxwell model. The code then analyzes the resulting 
 mean-squared displacement (MSD) of the particle and using the 
