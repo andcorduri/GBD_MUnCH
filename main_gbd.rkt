@@ -95,7 +95,7 @@
   (evolution rands1 vectr1 c l u lens sens mata matb deltat nit2 0 0 1 res4)
  
   
-  (list (for/list ([i (in-range nit2)]) (list (* i deltat)(vector-ref res4 i)))))
+  (for/list ([i (in-range nit2)]) (list (* i deltat)(vector-ref res4 i))))
 
 
 ;; Save trajectory
@@ -104,9 +104,8 @@
   (define out1 (open-output-file (string-append "Vdata_"  "traj_" (number->string(*(string->number inp))) ".csv") #:exists 'replace))
   
   (define rest1 (runsimu c l u lens sens dsens deltat tst inp 0 0))
-  (define calmsd (list-ref rest1 0))
 
-  (write-table calmsd out1)
+  (write-table rest1 out1)
   
   (close-output-port out1))
 
