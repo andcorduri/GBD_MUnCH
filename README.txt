@@ -23,7 +23,7 @@ Python: https://www.python.org/
 
 The script run.sh can be used to run a whole simulation, in 
 which first a memory kernel is calculated using 
-the Maxima mkernel.wxm.
+the Maxima script mkernel.wxm.
 Using this memory kernel, the GBD is run using run_gbd.rkt, 
 producing a trajectory file (in units of mV). The 
 MSD and its uncertainty are then
