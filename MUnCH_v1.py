@@ -1,6 +1,6 @@
 #This script is part of the Supplementary Material for the paper:
 #"MUnCH: a calculator for propagating statistical and other sources of error in passive microrheology" 
-#Published in Rheologica Acta, vol. 61, pp. 49–57, 2022.
+#Published in Rheologica Acta, vol. 61, pp. 49--57, 2022.
 #authors: Andres Cordoba and Jay D. Schieber
 #Copyright (2021) Andres Cordoba and Jay D. Schieber. 
 #This script is distributed under the MIT License.
