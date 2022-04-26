@@ -33,6 +33,7 @@
    (define lenin2 (inexact->exact(string->number (list-ref(list-ref inpar 8)1))))
    (define dtin (string->number (list-ref(list-ref inpar 9)1)))
    (define inp (list-ref(list-ref inpar 10)1))
+   (displayln "Running GBD simulation ...")
    (savesimu_gbd_data cim lim uim lensin sensin dsensin dtin lenin2 inp)]
   [else (error "Simulation type not implemented")]
   )
