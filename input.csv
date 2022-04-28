@@ -5,7 +5,6 @@ l_j,1,2,5,10
 z0,0.1
 He(pn/nm),0.08
 sens(nm/mV),0.25
-dsens(nm/mV),0.2
 length,2000.0
 deltat,0.001
 rand,<RUN>
@@ -19,10 +18,9 @@ Fourth line: Relaxation times of the Maxwell modes.
 Fifth line: Purely frictional element in the relaxation spectrum of the fluid.
 Sixth line: Trap stiffness.
 Seventh line: Sensitivity of photo-detector.
-Eight line: Uncertainty in the sensitivity.
-Ninth line: For how long to run the simulation (dimensionless time).
-Tenth line: Time step size of the simulation.
-Eleventh line: An integer number to set the random number seed.
+Eight line: For how long to run the simulation (dimensionless time).
+Ninth line: Time step size of the simulation.
+Tenth line: An integer number to set the random number seed.
 
 Input the strengths of the Maxwell modes normalized by the trap stiffness.
 Input the relaxation times normalized by the smallest relaxation time.

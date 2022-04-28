@@ -23,7 +23,7 @@ Python: https://www.python.org/
 
 The script run.sh can be used to run a whole simulation, in 
 which first a memory kernel is calculated using 
-the Maxima script mkernel.wxm.
+the Maxima mkernel.wxm.
 Using this memory kernel, the GBD is run using run_gbd.rkt, 
 producing a trajectory file (in units of mV). The 
 MSD and its uncertainty are then
@@ -32,6 +32,8 @@ The first column in the MSD file is the time, the second column the MSD
 and the third column the MSD uncertainty. The script msd.wxm
 generates an initial guess for fitting the MSD with an analytic function.
 This is used in MUnCH.py when performing the data analysis.
+Altenatively as Mathematica notebook (MUnCH_v1.nb) that performs 
+the same calculations that MUnCH_v1.py and msd.wxm is also provided.
 
 
 Papers where you can find the detailed explanations of the 
@@ -47,3 +49,5 @@ A. Córdoba and J. D. Schieber, “MUnCH: a calculator for
 propagating statistical and other sources of error in 
 passive microrheology,” Rheologica Acta, vol. 61, pp. 49–57, 2022.
 https://rdcu.be/cBqmk
+
+
