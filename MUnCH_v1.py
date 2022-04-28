@@ -62,7 +62,7 @@ with open('./msd0.csv','r') as csvfile:
 #Sensitivity in nm/mV:
 sens = float(input1[6][1])
 #Uncertainty in the sensitivity in nm/mV:
-dsens = float(input1[7][1])
+dsens = 0.1*float(input1[6][1])
 #Offset due to electric noise or optical system misalignment in mV:
 dV = 50
 #Probe bead diameter in micro meters:
