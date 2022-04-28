@@ -32,8 +32,6 @@ The first column in the MSD file is the time, the second column the MSD
 and the third column the MSD uncertainty. The script msd.wxm
 generates an initial guess for fitting the MSD with an analytic function.
 This is used in MUnCH.py when performing the data analysis.
-Altenatively as Mathematica notebook (MUnCH_v1.nb) that performs 
-the same calculations that MUnCH_v1.py and msd.wxm is also provided.
 
 
 Papers where you can find the detailed explanations of the 
