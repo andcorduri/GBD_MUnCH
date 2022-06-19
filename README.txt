@@ -34,8 +34,7 @@ generates an initial guess for fitting the MSD with an analytic function.
 This is used in MUnCH.py when performing the data analysis.
 
 A Mathematica Notebook version of the MUnCH script can be found at:
- https://notebookarchive.org/2022-02-47qzo2x
-
+https://notebookarchive.org/2022-02-47qzo2x
 
 Papers where you can find the detailed explanations of the 
 procedures used in this code: 
