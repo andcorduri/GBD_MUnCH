@@ -34,7 +34,7 @@ generates an initial guess for fitting the MSD with an analytic function.
 This is used in MUnCH.py when performing the data analysis.
 
 A new version of the MUnCH python code (MUnCH_numba.py) has been added that uses the 
-Numba JIT compiler. This version is much faster than the uncomipled version. 
+Numba JIT compiler. This version is much faster than the uncompiled version. 
 
 A Mathematica Notebook version of the MUnCH script can be found at:
 https://notebookarchive.org/2022-02-47qzo2x
