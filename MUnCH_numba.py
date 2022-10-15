@@ -472,7 +472,7 @@ ax.legend(loc='upper left', shadow=True, ncol=1, prop={'size': 40})
 
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(26, 35)
-fig.savefig('msd_Gs_py.png', dpi=300, bbox_inches='tight',pad_inches=0.5)
+fig.savefig('msd_Gs_py.eps', dpi=300, bbox_inches='tight',pad_inches=0.5)
 
 
-print('Saved figure to the file msd_Gs_py.png. Finished.')
+print('Saved figure to the file msd_Gs_py.eps. Finished.')
