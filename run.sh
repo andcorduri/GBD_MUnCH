@@ -22,4 +22,4 @@ maxima < ../msd.wxm --very-quiet
 
 wait
 
-python2.7 ../MUnCH_v1.py
+python3 ../MUnCH_numba.py
