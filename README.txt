@@ -1,4 +1,3 @@
-
 ################## GBD+MUnCH #####################
 ######### Copyright (c) 2022 Andres Cordoba ##########
 ######## email: andcorduri@gmail.com ##################
@@ -34,7 +33,11 @@ generates an initial guess for fitting the MSD with an analytic function.
 This is used in MUnCH.py when performing the data analysis.
 
 A new version of the MUnCH python code (MUnCH_numba.py) has been added that uses the 
-Numba JIT compiler. This version is much faster than the uncompiled version. 
+Numba JIT compiler. This version is much faster than the uncompiled version.
+
+A new version of the MUnCH python code (MUnCH_LF.py) has been added that
+works well with very large data files that can not be loaded all at once.
+It also uses the Numba JIT compiler.
 
 A Mathematica Notebook version of the MUnCH script can be found at:
 https://notebookarchive.org/2022-02-47qzo2x
@@ -52,5 +55,3 @@ A. Córdoba and J. D. Schieber, “MUnCH: a calculator for
 propagating statistical and other sources of error in 
 passive microrheology,” Rheologica Acta, vol. 61, pp. 49–57, 2022.
 https://rdcu.be/cBqmk
-
-
