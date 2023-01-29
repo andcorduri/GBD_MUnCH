@@ -88,7 +88,7 @@ solΛ2:makelist(Λ[i]=at(-1/s,solΛ[i]),i,1,length(solΛ))$
 
 
 /* [wxMaxima: input   start ] */
-poly4eval:expand(poly4(4,ζin))$
+poly4eval:expand(poly4(input[4],ζin))$
 /* [wxMaxima: input   end   ] */
 
 
