@@ -7,7 +7,7 @@
 #This script is distributed under the MIT License.
 #email: andcorduri@gmail.com
 
-#This script was tested on Python 3.7.6
+#This script was tested on Python 3.8.10
 
 #The next few lines import libraries that are required for the script to work. If you do not have them 
 #installed on your system you will have to install them.
