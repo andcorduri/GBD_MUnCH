@@ -198,53 +198,49 @@ def msdsamp(datafile, datalength, loadlength, sens, dsens, dV):
     m=2
     g=int(round(loadlength/(p*m)))
     count=0
+    uplima=int(math.floor(np.log(datalength/p)/np.log(m)))
     uplim=int(math.floor(np.log(datalength/(p*g))/np.log(m)))
-    for i in range(1,p*m):
-        count+=1
-    for i in range(1,uplim):
-        if i<uplim-1:
-            for j in range(p*m**i,p*m**(i+1),m**i):
-                count+=1
-        else:
-            for j in range(p*m**i,int(round(p*(g/1.5)*m**(i+1))),m**i):
-                count+=1
-    rest=np.zeros(count,dtype=float)
-    res=np.zeros((count,2),dtype=float)
+    rest=[]
+    res=[]
     drbV=np.zeros(p*m*g,dtype=float)
     datat=np.zeros(p*m*g,dtype=float)
     datax=np.zeros(p*m*g,dtype=float)
     readdata(dataStr,datat,datax,0,p*g*m,sens,m,0)
     drbVfun(drbV, datax, p*m*g, sens, dsens)
-    count=0
     sampf=1/(datat[1]-datat[0])
     for i in range(1,p*m):
         n=len(datax)-i
         xV=np.zeros(n,dtype=float)
         dxV=np.zeros(n,dtype=float)
-        rest[count]=i/sampf
-        res[count]=msdblt(datax, i, drbV, n, xV, dxV)
-        count+=1
-    for i in range(1,uplim):
-        samp(datat, p, g, m)
-        samp(datax, p, g, m)
-        readdata(dataStr,datat,datax,p*g*m**i,p*g*m**(i+1),sens,m,i)
-        drbVfun(drbV, datax, p*m*g, sens, dsens)
-        if i<uplim-1:
+        rest.append(i/sampf)
+        res.append(msdblt(datax, i, drbV, n, xV, dxV))
+    if uplim < 2:
+        for i in range(1,uplima):
+            for j in range(p*m**i,p*m**(i+1),m**i):
+                n=len(datax)-j
+                xV=np.zeros(n,dtype=float)
+                dxV=np.zeros(n,dtype=float)
+                rest.append(j/sampf)
+                res.append(msdblt(datax, j, drbV, n, xV, dxV))
+    else:
+        for i in range(1,uplim):
+            samp(datat, p, g, m)
+            samp(datax, p, g, m)
+            readdata(dataStr,datat,datax,p*g*m**i,p*g*m**(i+1),sens,m,i)
+            drbVfun(drbV, datax, p*m*g, sens, dsens)
             for j in range(p*m**i,p*m**(i+1),m**i):
                 n=len(datax)-int(j/m**i)
                 xV=np.zeros(n,dtype=float)
                 dxV=np.zeros(n,dtype=float)
-                rest[count]= j/sampf
-                res[count]=msdblt(datax, int(j/m**i), drbV, n, xV, dxV)
-                count+=1
-        else:
-            for j in range(p*m**i,int(round(p*(g/1.5)*m**(i+1))),m**i):
-                n=len(datax)-int(j/m**i)
+                rest.append(j/sampf)
+                res.append(msdblt(datax, int(j/m**i), drbV, n, xV, dxV))
+        for i in range(uplim,uplima):
+            for j in range(p*m**i,p*m**(i+1),m**i):
+                n=len(datax)-int(j/m**(uplim-1))
                 xV=np.zeros(n,dtype=float)
                 dxV=np.zeros(n,dtype=float)
-                rest[count]= j/sampf
-                res[count]=msdblt(datax, int(j/m**i), drbV, n, xV, dxV)
-                count+=1
+                rest.append(j/sampf)
+                res.append(msdblt(datax, int(j/m**(uplim-1)), drbV, n, xV, dxV))
     return [rest, res]
 
  
