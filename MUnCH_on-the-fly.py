@@ -14,7 +14,7 @@
 
 
 #This version performs the Brownian dynamics simulation that generates the bead trajectory in this same 
-#python script and calculates the MSD and its uncertaint on-the-fly without storing the raw trajectory data
+#python script and calculates the MSD and its uncertainty on-the-fly without storing the raw trajectory data
 #this version also uses the CPU Numba jit compiler. Is much faster that the uncompiled versions.
 
 import sys
