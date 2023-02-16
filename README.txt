@@ -32,12 +32,18 @@ and the third column the MSD uncertainty. The script msd.wxm
 generates an initial guess for fitting the MSD with an analytic function.
 This is used in MUnCH.py when performing the data analysis.
 
-A new version of the MUnCH python code (MUnCH_numba.py) has been added that uses the 
+UPDATES:
+
+October 14 2022: A new version of the MUnCH python code (MUnCH_numba.py) has been added that uses the 
 Numba JIT compiler. This version is much faster than the uncompiled version.
 
-A new version of the MUnCH python code (MUnCH_LF.py) has been added that
+January 29 2023: A new version of the MUnCH python code (MUnCH_LF.py) has been added that
 works well with very large data files that can not be loaded all at once.
 It also uses the Numba JIT compiler.
+
+February 16 2023: A new version of the MUnCH python code (MUnCH_on-the-fly.py) has been added that
+that generates the bead trajectory in the same python script and calculates the MSD and its uncertaint 
+on-the-fly without storing the raw trajectory data this version also uses the CPU Numba jit compiler.
 
 A Mathematica Notebook version of the MUnCH script can be found at:
 https://notebookarchive.org/2022-02-47qzo2x
