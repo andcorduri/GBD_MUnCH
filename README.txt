@@ -42,7 +42,7 @@ works well with very large data files that can not be loaded all at once.
 It also uses the Numba JIT compiler.
 
 February 16 2023: A new version of the MUnCH python code (MUnCH_on-the-fly.py) has been added that
-generates the bead trajectory in the same python script and calculates the MSD and its uncertaint 
+generates the bead trajectory in the same python script and calculates the MSD and its uncertainty 
 on-the-fly without storing the raw trajectory data this version also uses the CPU Numba jit compiler.
 
 A Mathematica Notebook version of the MUnCH script can be found at:
