@@ -1,7 +1,7 @@
 type,run_gbd
 nm,4
 H_j,4,3,2,1
-l_j,1,2,5,10
+l_j,1,5,10,20
 z0,0.1
 He(pn/nm),0.08
 sens(nm/mV),0.25
