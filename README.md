@@ -1,6 +1,6 @@
-################## GBD+MUnCH #####################
-######### Copyright (c) 2022 Andres Cordoba ##########
-######## email: andcorduri@gmail.com ##################
+GBD+MUnCH
+Copyright (c) 2022 Andres Cordoba
+email: andcorduri@gmail.com
 
 Papers where you can find the detailed explanations of the 
 procedures used in this code: 
