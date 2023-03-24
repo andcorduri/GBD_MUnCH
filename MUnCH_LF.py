@@ -237,10 +237,11 @@ def msdsamp(datafile, datalength, loadlength, sens, dsens, dV):
         for i in range(uplim,uplima):
             for j in range(p*m**i,p*m**(i+1),m**i):
                 n=len(datax)-int(j/m**(uplim-1))
-                xV=np.zeros(n,dtype=float)
-                dxV=np.zeros(n,dtype=float)
-                rest.append(j/sampf)
-                res.append(msdblt(datax, int(j/m**(uplim-1)), drbV, n, xV, dxV))
+                if n >0:
+                    xV=np.zeros(n,dtype=float)
+                    dxV=np.zeros(n,dtype=float)
+                    rest.append(j/sampf)
+                    res.append(msdblt(datax, int(j/m**(uplim-1)), drbV, n, xV, dxV))
     return [rest, res]
 
  
@@ -251,7 +252,7 @@ def msdsamp(datafile, datalength, loadlength, sens, dsens, dV):
 def write_msd_file(outFile,msd):                                                
     file = open(outFile,"w")
     for i in range(0,len(msd[0])):
-        file.write("%s,%s,%s\n" % (msdt[0][i],msdt[1][i][0],msdt[1][i][1]))                                 
+        file.write("%s,%s,%s\n" % (msd[0][i],msd[1][i][0],msd[1][i][1]))                                 
     file.close() 
     
 
