@@ -103,7 +103,7 @@
   
   (define out1 (open-output-file (string-append "Vdata_"  "traj_" (number->string(*(string->number inp))) ".csv") #:exists 'replace))
   
-  (define rest1 (runsimu c l u lens sens deltat tst inp 0 0))
+  (define rest1 (runsimu c l u lens sens deltat tst inp 1 1))
 
   (write-table rest1 out1)
   

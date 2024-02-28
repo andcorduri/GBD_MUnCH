@@ -35,15 +35,6 @@ from numba import jit
 #the  second column is voltage in units of mV. For this line to work save 
 #the data file in the same folder as the script
 
-t1=[]
-data1=[]
-bead = sys.argv[1]
-with open('./Vdata_traj_' + bead + '.csv','r') as csvfile:
-    plots=csv.reader(csvfile, delimiter=',')
-    for row in plots:
-        t1.append(float(row[0]))
-        data1.append(float(row[1]))
-
 input1=[]
 with open('./input.csv','r') as csvfile:
     in1=csv.reader(csvfile, delimiter=',')
@@ -102,143 +93,50 @@ for i in range(0,len(input3[1])):
        cpV0.append(float(input3[1][i]))
 
 
-#This next function, "msdblt" implements the blocking
-#transformations method (H. Flyvbjerg and H. G. Petersen, The Journal
-#of Chemical Physics, vol. 91, no. 1, pp. 461-466, 1989) for
-#calculating the uncertainty in the MSD. The first argument "data" is
-#the data file where the first column is the time made dimensionless
-#by the smallest relaxation time of the medium, and the second column
-#is voltage in units of mV. The second argument "tj" is the lag
-#time also made dimensionless by the smallest relaxation time of the
-#medium. The third argument "drb" is a vector that contains the
-#measurement errors
+tmsd=[]
+msdtt=[]
+msde=[]
+beadnn = int(sys.argv[1])
 
-@jit
-def msdblt(data, tj, drb, n, xV, dxV):
-    for i in range(0,n):
-        xV[i]=(data[i]-data[i+tj])**2
-    xav=sum(xV)/n
-    for i in range(0,n):
-        dxV[i]=2*math.sqrt(xV[i]*(drb[i]**2+drb[i+tj]**2))
-    dxAv=dxV[0]**2
-    for i in range(1,n):
-        dxAv=dxAv+dxV[i]**2
-    dxAv=math.sqrt(dxAv)/n
-    c0=(xV[0]-xav)**2
-    for i in range(1,n):
-        c0=c0+(xV[i]-xav)**2
-    c0=c0/n
-    sa=math.sqrt(c0/(n-1))+dxAv
-    sb=sa/math.sqrt(2*(n-1))
-    n=int(math.floor(n/2))
-    for i in range(0,n):
-        xV[i]=(xV[2*i+1]+xV[2*i])/2
-    for i in range(0,n):
-        dxV[i]=(math.sqrt(dxV[2*i+1]**2+dxV[2*i]**2))/2
-    dxAv=dxV[0]**2
-    for i in range(1,n):
-        dxAv=dxAv+dxV[i]**2
-    dxAv=math.sqrt(dxAv)/n
-    c0=(xV[0]-xav)**2
-    for i in range(1,n):
-        c0=c0+(xV[i]-xav)**2
-    c0=c0/n
-    sap=math.sqrt(c0/(n-1))+dxAv
-    sbp=sap/math.sqrt(2*(n-1))
-    while math.fabs(sa-sap) > sbp+sb and n > 4:
-        sa=sap
-        sb=sbp
-        n=int(math.floor(n/2))
-        for i in range(0,n):
-            xV[i]=(xV[2*i+1]+xV[2*i])/2
-        for i in range(0,n):
-            dxV[i]=(math.sqrt(dxV[2*i+1]**2+dxV[2*i]**2))/2
-        dxAv=dxV[0]**2
-        for i in range(1,n):
-            dxAv=dxAv+dxV[i]**2
-        dxAv=math.sqrt(dxAv)/n
-        c0=(xV[0]-xav)**2
-        for i in range(1,n):
-            c0=c0+(xV[i]-xav)**2
-        c0=c0/n
-        sap=math.sqrt(c0/(n-1))+dxAv
-        sbp=sap/math.sqrt(2*(n-1))
-    return [xav, sap]
+with open('./msd_wth_err_py_1.csv','r') as csvfile:
+    plots=csv.reader(csvfile, delimiter=',')
+    for row in plots:
+        tmsd.append(float(row[0]))
+        msdtt.append(float(row[1]))
+        msde.append(float(row[2]))
+
+for bead in range(2,beadnn):
+    with open('./msd_wth_err_py_' + str(bead) + '.csv','r') as csvfile:
+        plots=csv.reader(csvfile, delimiter=',')
+        i=0
+        for row in plots:
+            msdtt[i]=msdtt[i]+float(row[1])
+            msde[i]=msde[i]+float(row[2])
+            i=i+1
+            
+            
+#This next two lines call the functions that calculate the MSD and its uncertainty.
+
+print('Calculating the ensemble averaged MSD and its uncertainty, please wait, this will take some time ...')
+
+msdt=list(map(lambda x,y,z: [x,y/beadnn,z/(beadnn*math.sqrt(beadnn))], tmsd,msdtt,msde))
 
 
-#This next function calls the previous functions at evenly spaced points in a log scale, i.e. 
-#calculates the MSD and its uncertainty at evenly spaced lag times in a log scale. The first
-#argument "data" is the data file, The second argument "sens" is the
-#sensitivity in units of nm/mV. The fourth argument "dsens" is the
-#uncertainty in the sensitivity in units of nm/mV. The fourth argument
-#"dV" is the offset due to electric noise or optical system
-#misalignment in units of mV
-
-def msdsamp(data, sens, dsens, dV, sampf):
-    p=8
-    m=2
-    count = 0
-    uplim=int(math.floor(np.log(len(data)/p)/np.log(m)))
-    for i in range(1,p*m):
-        count+=1
-    for i in range(1,uplim):
-        for j in range(p*m**i,p*m**(i+1),m**i):
-            count+=1
-    rest=np.zeros(count,dtype=float)
-    res=np.zeros((count,2),dtype=float)
-    drbV=np.zeros(len(data),dtype=float)
-    datax=np.zeros(len(data),dtype=float)
-    for i in range(0,len(data)):
-        drbV[i]=math.sqrt((data[i]*dsens)**2+(sens*dV)**2)
-        datax[i]=data[i]*sens
-    count=0    
-    for i in range(1,p*m):
-        n=len(data)-i
-        xV=np.zeros(n,dtype=float)
-        dxV=np.zeros(n,dtype=float)
-        rest[count]=i/sampf
-        res[count]=msdblt(datax, i, drbV, n, xV, dxV)
-        count+=1
-    for i in range(1,uplim):
-        for j in range(p*m**i,p*m**(i+1),m**i):
-            n=len(data)-j
-            xV=np.zeros(n,dtype=float)
-            dxV=np.zeros(n,dtype=float)
-            rest[count]=j/sampf
-            res[count]=msdblt(datax, j, drbV, n, xV, dxV)
-            count+=1
-    return [rest, res]
-
- 
 #This next functions exports the MSD and its uncertainty to a file. 
 #The first column in the written file is time made dimensionless by the smallest relaxation time of the medium. 
 #The second column is the MSD in nm^2. The third column is the MSD error also in nm^2
 
 def write_msd_file(outFile,msd):                                                
     file = open(outFile,"w")
-    for i in range(0,len(msd[0])):
-        file.write("%s,%s,%s\n" % (msdt[0][i],msdt[1][i][0],msdt[1][i][1]))                                 
+    for i in range(0,len(msd)):
+        file.write("%s,%s,%s\n" % (msd[i][0],msd[i][1],msd[i][2]))                                 
     file.close() 
-    
-
-#This next two lines call the functions that calculate the MSD and its uncertainty.
-
-print('Calculating the MSD and its uncertainty, please wait, this will take some time ...')
-
-msdt=msdsamp(data1,sens,dsens,dV,1/(t1[1]-t1[0]))
-
-write_msd_file('./msd_wth_err_py_' + bead + '.csv',msdt)
 
 
-tmsd=msdt[0]
-msde=[]
-msdtt=[]
-for i in range(0,len(msdt[1])):
-    msde.append(msdt[1][i][1])
-    msdtt.append(msdt[1][i][0])
-            
+write_msd_file('./msd_wth_err_py_av.csv',msdt)
 
-print('MSD saved to file msd_wth_err_py.csv. Fitting the MSD with an analytic expression ...')
+
+print('MSD saved to file msd_wth_err_py_av.csv. Fitting the MSD with an analytic expression ...')
 
 #The function "msdmodel" is the analytic expression used to fit the MSD
 #of the probe bead.
@@ -254,6 +152,9 @@ def msdmodel(t,cp0,cp1,cp2,cp3,cp4):
 
 #The next line fits the analytic expression above to the MSD data
 
+msdtt=list(map(lambda x: x[1], msdt))
+msde=list(map(lambda x: x[2], msdt))
+
 for i in range(0,len(cpV0)):
     cpV0[i]=cpV0[i]/sum(cpV0)
 pars, cov = curve_fit(f=msdmodel, xdata=tmsd, ydata=msdtt, p0=cpV0, sigma=msde, absolute_sigma=True, bounds=(0, np.inf))
@@ -266,10 +167,10 @@ def write_fit_file(outFile,fit):
         file.write("%s,%s\n" % (Lp[i],fit[i]/sum(fit)))                                 
     file.close() 
     
-write_fit_file('./msd_fit_py_' + bead + '.csv',pars)
+write_fit_file('./msd_fit_py_av.csv',pars)
 
 
-print('MSD fit saved to file msd_fit_py.csv. Propagating the error to the dynamic modulus ...')
+print('MSD fit saved to file msd_fit_py_av.csv. Propagating the error to the dynamic modulus ...')
 
 #The functions "Gs" and "GsErr" propagate the error from the MSD fit to the
 #dynamic modulus. It uses the generalized Stokes-Einstein relation
@@ -424,9 +325,9 @@ def write_Gs_file(outFile, wGs, Gp, GpUp, Gpp, GppUp):
         file.write("%s,%s,%s,%s,%s\n" % (wGs[endf-i],Gp[endf-i],GpUp[endf-i]-Gp[endf-i],Gpp[endf-i],GppUp[endf-i]-Gpp[endf-i]))                                 
     file.close()
     
-write_Gs_file('Gs_wth_err_py_' + bead + '.csv',wGs,Gp,GpUp,Gpp,GppUp)
+write_Gs_file('Gs_wth_err_py_av.csv',wGs,Gp,GpUp,Gpp,GppUp)
 
-print('Dynamic modulus and its uncertainty saved to file Gs_wth_err_py.csv. Generating plot ...')
+print('Dynamic modulus and its uncertainty saved to file Gs_wth_err_py_av.csv. Generating plot ...')
     
 def lighten_color(color, amount=0.5):
     """
@@ -473,7 +374,9 @@ ax.legend(loc='upper left', shadow=True, ncol=1, prop={'size': 40})
 
 fig = matplotlib.pyplot.gcf()
 fig.set_size_inches(26, 35)
-fig.savefig('msd_Gs_py_' + bead + '.eps', dpi=300, bbox_inches='tight',pad_inches=0.5)
+fig.savefig('msd_Gs_py.eps', dpi=300, bbox_inches='tight',pad_inches=0.5)
 
 
-print('Saved figure to the file msd_Gs_py.eps. Finished.')
+print('Saved figure to the file msd_Gs_py_av.eps. Finished.')
+
+

@@ -14,7 +14,7 @@ maxima < ../mkernel.wxm --very-quiet
 
 
 sed -i "s/<RUN>/$RUN/" input.csv
-racket ../run_gbd.rkt
+racket ../run_gbd.rkt 1
 
 wait 
 
@@ -22,4 +22,4 @@ maxima < ../msd.wxm --very-quiet
 
 wait
 
-python3 ../MUnCH_numba.py
+python3 ../MUnCH_numba.py 1
