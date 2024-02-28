@@ -103,7 +103,7 @@ with open('./msd_wth_err_py_1.csv','r') as csvfile:
     for row in plots:
         tmsd.append(float(row[0]))
         msdtt.append(float(row[1]))
-        msde.append(float(row[2]))
+        msde.append(float(row[2])**2)
 
 for bead in range(2,beadnn):
     with open('./msd_wth_err_py_' + str(bead) + '.csv','r') as csvfile:
@@ -111,7 +111,7 @@ for bead in range(2,beadnn):
         i=0
         for row in plots:
             msdtt[i]=msdtt[i]+float(row[1])
-            msde[i]=msde[i]+float(row[2])
+            msde[i]=msde[i]+float(row[2])**2
             i=i+1
             
             
@@ -119,7 +119,7 @@ for bead in range(2,beadnn):
 
 print('Calculating the ensemble averaged MSD and its uncertainty, please wait, this will take some time ...')
 
-msdt=list(map(lambda x,y,z: [x,y/beadnn,z/(beadnn*math.sqrt(beadnn))], tmsd,msdtt,msde))
+msdt=list(map(lambda x,y,z: [x,y/beadnn,math.sqrt(z)/beadnn], tmsd,msdtt,msde))
 
 
 #This next functions exports the MSD and its uncertainty to a file. 
