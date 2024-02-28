@@ -34,4 +34,6 @@ The script run.sh can be used to run a whole simulation, in which first a memory
 
 3. February 16 2023: A new version of the MUnCH python code (MUnCH_on-the-fly.py) has been added that generates the bead trajectory in the same python script and calculates the MSD and its uncertainty on-the-fly without storing the raw trajectory data this version also uses the CPU Numba jit compiler.
 
+4. February 27 2024: Bash scripts (run_ensemble.sh and run_enspara.sh) were added. These files run a workflow that generates an ensemble of trajectories then calculates the MSD and its uncertainty for each trajectory using MUnCH_numba.py. Then using ensemble_av.py the script calculates the ensemble average of the MSD and analyzes this average. The script run_enspara.sh uses GNU parallel while the script run_ensemble.sh does everything sequentially.
+
 
