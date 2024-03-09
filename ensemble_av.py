@@ -105,7 +105,7 @@ with open('./msd_wth_err_py_1.csv','r') as csvfile:
         msdtt.append(float(row[1]))
         msde.append(float(row[2])**2)
 
-for bead in range(2,beadnn):
+for bead in range(2,beadnn+1):
     with open('./msd_wth_err_py_' + str(bead) + '.csv','r') as csvfile:
         plots=csv.reader(csvfile, delimiter=',')
         i=0
